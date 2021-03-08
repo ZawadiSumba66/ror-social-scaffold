@@ -15,22 +15,22 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :users, through: :inverse_friendships, class_name: 'User'
 
-  has_many :confirmed_friendships, -> {where confirmed: true}, class_name: 'Friendship'
+  has_many :confirmed_friendships, -> { where confirmed: true }, class_name: 'Friendship'
   has_many :confirmed_friends, through: :confirmed_friendships, source: :friend
-  
-  has_many :pending_friendships, -> {where confirmed: false}, class_name: 'Friendship', foreign_key: 'friend_id'
+
+  has_many :pending_friendships, -> { where confirmed: false }, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :pending_friends, through: :pending_friendships, source: :user
 
-  has_many :pending_sent_friendships, -> {where confirmed: false}, class_name: 'Friendship', foreign_key: 'user_id'
+  has_many :pending_sent_friendships, -> { where confirmed: false }, class_name: 'Friendship', foreign_key: 'user_id'
   has_many :pending_sent_friends, through: :pending_sent_friendships, source: :friend
-  
+
   def friends_posts
     friends_ids = confirmed_friends.map(&:id)
     friends_id << id
     Post.all.ordered_by_most_recent.where(user_id: friends_ids)
   end
 
-  def request_from(user) 
+  def request_from(user)
     pending_friendships.find_by(user_id: user.id)
   end
 end
