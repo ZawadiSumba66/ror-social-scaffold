@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   def friends_posts
     friends_ids = confirmed_friends.map(&:id)
-    friends_id << id
+    friends_ids << id
     Post.all.ordered_by_most_recent.where(user_id: friends_ids)
   end
 
