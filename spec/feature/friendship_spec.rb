@@ -1,11 +1,10 @@
 require 'rails_helper'
 RSpec.configure do |c|
-    c.use_transactional_examples = false
-    c.order = 'defined'
-  end
+  c.use_transactional_examples = false
+  c.order = 'defined'
+end
 
 RSpec.feature 'Friendships' do
-
   scenario 'when logged in user sends a friend request to another user' do
     @user = User.create(name: 'user1', email: 'user1@gmail.com', password: '123456')
     @user = User.create(name: 'user2', email: 'user2@gmail.com', password: '123457')
