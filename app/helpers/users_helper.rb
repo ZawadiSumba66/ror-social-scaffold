@@ -28,9 +28,9 @@ module UsersHelper
       user.pending_friendships.each do |friendship|
         name = (content_tag :span, friendship.user.name)
         accept = (content_tag :span,
-                              (link_to 'Accept', "/users/#{user.id}/friendships/#{frienship.id}", method: :put))
+                              (link_to 'Accept', "/users/#{user.id}/friendships/#{friendship.id}", method: :put))
         reject = (content_tag :span,
-                              (link_to 'Reject', "/users/#{user.id}/friendships/#{frienship.id}", method: :delete))
+                              (link_to 'Reject', "/users/#{user.id}/friendships/#{friendship.id}", method: :delete))
         invitations << (content_tag :p, name + accept + reject)
       end
     end
